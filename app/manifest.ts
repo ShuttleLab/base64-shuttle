@@ -1,0 +1,22 @@
+import type { MetadataRoute } from "next";
+
+export const dynamic = "force-static";
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: "Base64 Shuttle | Free Online Encoder & Decoder Toolkit",
+    short_name: "Base64 Shuttle",
+    description: "Encode and decode Base64, URL, HTML, Hex, Unicode, and JWT tokens directly in your browser. 100% private.",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#f5f3ff",
+    theme_color: "#7c3aed",
+    orientation: "any",
+    icons: [
+      { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "maskable" },
+      { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+    ],
+  };
+}

@@ -1,0 +1,42 @@
+import Link from "next/link";
+import { Image as ImageIcon } from "lucide-react";
+
+
+const SUGGESTIONS = [
+  { name: "Base64 Encode", href: "/tools/base64-encode" },
+  { name: "URL Encode", href: "/tools/url-encode" },
+  { name: "JWT Decoder", href: "/tools/jwt-decoder" },
+];
+
+export default function NotFound() {
+  return (
+    <div className="flex flex-1 items-center justify-center px-4 py-16">
+      <div className="text-center max-w-lg">
+        <div className="text-7xl mb-4">🔧</div>
+        <h1 className="text-5xl font-bold mb-2">404</h1>
+        <p className="text-muted-foreground mb-1">Page not found</p>
+        <p className="text-muted-foreground mb-8 text-sm">The page you&apos;re looking for doesn&apos;t exist or has been moved.</p>
+        <Link href="/" className="inline-block px-6 py-2.5 bg-foreground text-background rounded-md hover:opacity-90">Back to Home</Link>
+        <div className="mt-12 pt-8 border-t border-border">
+          <p className="text-xs uppercase tracking-wider text-muted-foreground/70 mb-3">Try our tools</p>
+          <div className="flex flex-wrap gap-x-3 gap-y-2 justify-center text-sm">
+            {SUGGESTIONS.map((s) => (
+              <Link key={s.href} href={s.href} className="text-muted-foreground hover:text-foreground">{s.name}</Link>
+            ))}
+          </div>
+        </div>
+        <div className="mt-8 pt-6 border-t border-border">
+          <p className="text-xs uppercase tracking-wider text-muted-foreground/70 mb-3">Also from ShuttleLab</p>
+          <a
+            href="https://image.shuttlelab.org"
+            rel="noopener"
+            className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+          >
+            <ImageIcon className="h-4 w-4" />
+            Image Shuttle — Image compression &amp; optimization
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
