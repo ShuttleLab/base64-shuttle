@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ConversionStats } from "@/components/conversion-stats";
-import { Copy, Check, Trash2, ArrowUpDown, ClipboardPaste, Download, ArrowRight, ArrowLeft } from "lucide-react";
+import { Copy, Check, Trash2, ArrowUpDown, ClipboardPaste, Download, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
 interface EncoderDecoderProps {
@@ -100,22 +100,37 @@ export function EncoderDecoder({
   return (
     <div className="space-y-4">
       {children}
-      <div className="flex items-center gap-2 justify-center">
-        {mode === "both" && (
-          <>
-            <Button variant={direction === "encode" ? "default" : "outline"} size="sm" onClick={() => setDirection("encode")}>
-              <ArrowRight className="size-3.5 mr-1" />{t("encode")}
+      {mode === "both" && (
+        <div className="flex justify-center">
+          <div className="inline-flex rounded-lg border bg-muted p-1 gap-1">
+            <Button
+              variant={direction === "encode" ? "default" : "ghost"}
+              size="sm"
+              className="rounded-md px-5"
+              onClick={() => setDirection("encode")}
+            >
+              {t("encode")}
             </Button>
-            <Button variant={direction === "decode" ? "default" : "outline"} size="sm" onClick={() => setDirection("decode")}>
-              <ArrowLeft className="size-3.5 mr-1" />{t("decode")}
+            <Button
+              variant={direction === "decode" ? "default" : "ghost"}
+              size="sm"
+              className="rounded-md px-5"
+              onClick={() => setDirection("decode")}
+            >
+              {t("decode")}
             </Button>
-          </>
-        )}
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          </div>
+        </div>
+      )}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-4 items-stretch">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium">{direction === "encode" ? t("encode") : t("decode")}</span>
+            <span className="text-sm font-medium">
+              {t("inputLabel")}
+              <span className="ml-1.5 text-xs font-normal text-muted-foreground">
+                ({direction === "encode" ? t("encode") : t("decode")})
+              </span>
+            </span>
             <div className="flex gap-1">
               <Button variant="ghost" size="sm" onClick={handlePaste} className="h-7 px-2 text-xs"><ClipboardPaste className="size-3 mr-1" />{t("paste")}</Button>
               <Button variant="ghost" size="sm" onClick={handleClear} className="h-7 px-2 text-xs"><Trash2 className="size-3 mr-1" />{t("clear")}</Button>
@@ -128,6 +143,9 @@ export function EncoderDecoder({
             className="min-h-[200px] font-mono text-sm resize-y"
             style={{ fontSize: "16px" }}
           />
+        </div>
+        <div className="hidden lg:flex items-center justify-center text-muted-foreground" aria-hidden="true">
+          <ArrowRight className="size-5" />
         </div>
         <div className="space-y-2">
           <div className="flex items-center justify-between">

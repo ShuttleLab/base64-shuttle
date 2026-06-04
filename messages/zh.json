@@ -77,6 +77,7 @@
     "copy": "复制",
     "encode": "编码",
     "decode": "解码",
+    "inputLabel": "输入",
     "swap": "互换",
     "clear": "清空",
     "paste": "粘贴",
