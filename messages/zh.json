@@ -33,7 +33,9 @@
     "error": "错误",
     "success": "成功",
     "alsoFrom": "ShuttleLab 旗下还有",
-    "alsoFromNote": "图片压缩与优化"
+    "alsoFromNote": "图片压缩与优化",
+    "notePromoDesc": "Markdown 编辑与分享",
+    "statusPromoDesc": "可用性监控与告警"
   },
   "home": {
     "title": "Base64 Shuttle — 免费在线编解码工具集",

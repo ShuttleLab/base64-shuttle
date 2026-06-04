@@ -28,12 +28,19 @@ export default function NotFound() {
         <div className="mt-8 pt-6 border-t border-border">
           <p className="text-xs uppercase tracking-wider text-muted-foreground/70 mb-3">Also from ShuttleLab</p>
           <a
-            href="https://image.shuttlelab.org"
+            href="https://note.shuttlelab.org"
             rel="noopener"
-            className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+            className="text-sm text-muted-foreground hover:text-foreground"
           >
-            <ImageIcon className="h-4 w-4" />
-            Image Shuttle — Image compression &amp; optimization
+            Note Shuttle — Markdown editor &amp; sharing
+          </a>
+          <span className="mx-2 text-muted-foreground/30">|</span>
+          <a
+            href="https://status.shuttlelab.org"
+            rel="noopener"
+            className="text-sm text-muted-foreground hover:text-foreground"
+          >
+            Status Shuttle — Uptime monitoring
           </a>
         </div>
       </div>

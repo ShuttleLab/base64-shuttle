@@ -26,8 +26,27 @@ export default function Footer() {
           </div>
           <p className="flex items-center gap-2 flex-wrap justify-center">
             <span className="text-muted-foreground">{t("common.alsoFrom")}:</span>
-            <a href="https://image.shuttlelab.org" rel="noopener" className="font-semibold text-foreground hover:text-primary transition-colors">Image Shuttle</a>
-            <span className="text-muted-foreground text-xs">{t("common.alsoFromNote")}</span>
+            <a
+              href="https://note.shuttlelab.org"
+              rel="noopener"
+              className="font-semibold text-foreground hover:text-primary transition-colors"
+            >
+              Note Shuttle
+            </a>
+            <span className="text-muted-foreground text-xs">
+              {t("common.notePromoDesc")}
+            </span>
+            <span className="text-muted-foreground/30">|</span>
+            <a
+              href="https://status.shuttlelab.org"
+              rel="noopener"
+              className="font-semibold text-foreground hover:text-primary transition-colors"
+            >
+              Status Shuttle
+            </a>
+            <span className="text-muted-foreground text-xs">
+              {t("common.statusPromoDesc")}
+            </span>
           </p>
           <p>&copy; {new Date().getFullYear()} <Link href="/">&nbsp;{t("common.allName")}</Link>. All rights reserved.</p>
         </div>

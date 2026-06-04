@@ -33,7 +33,9 @@
     "error": "Error",
     "success": "Success",
     "alsoFrom": "Also from ShuttleLab",
-    "alsoFromNote": "Image compression & optimization"
+    "alsoFromNote": "Image compression & optimization",
+    "notePromoDesc": "Markdown editor & sharing",
+    "statusPromoDesc": "Uptime monitoring & alerts"
   },
   "home": {
     "title": "Base64 Shuttle — Free Online Encoder & Decoder Toolkit",
