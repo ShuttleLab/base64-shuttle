@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ConversionStats } from "@/components/conversion-stats";
-import { Copy, Check, Trash2, ArrowUpDown, ClipboardPaste, Download, ArrowRight } from "lucide-react";
+import { Copy, Check, Trash2, ArrowUpDown, ClipboardPaste, Download, Lock, Unlock } from "lucide-react";
 import { toast } from "sonner";
 
 interface EncoderDecoderProps {
@@ -18,49 +18,33 @@ interface EncoderDecoderProps {
   children?: React.ReactNode;
 }
 
+// toolhelper-style explicit-action layout: input on top, a row of obvious
+// action buttons (Encode / Decode / Swap / Clear), result below. Textareas
+// grow with their content (field-sizing) instead of fixed heights.
 export function EncoderDecoder({
   encode,
   decode,
   inputPlaceholder,
   outputPlaceholder,
   mode = "both",
-  defaultDirection = "encode",
   children,
 }: EncoderDecoderProps) {
   const t = useTranslations("tools");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-  const [direction, setDirection] = useState<"encode" | "decode">(defaultDirection);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>(null);
 
-  const process = useCallback(
-    (text: string, dir: "encode" | "decode") => {
-      if (!text.trim()) {
-        setOutput("");
-        setError(null);
-        return;
-      }
-      try {
-        const result = dir === "encode" ? encode(text) : decode(text);
-        setOutput(result);
-        setError(null);
-      } catch (e) {
-        setError(e instanceof Error ? e.message : t("error"));
-        setOutput("");
-      }
-    },
-    [encode, decode, t]
-  );
-
-  useEffect(() => {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => process(input, direction), 300);
-    return () => {
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-    };
-  }, [input, direction, process]);
+  const run = (dir: "encode" | "decode") => {
+    if (!input.trim()) return;
+    try {
+      setOutput(dir === "encode" ? encode(input) : decode(input));
+      setError(null);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : t("error"));
+      setOutput("");
+    }
+  };
 
   const handleCopy = async () => {
     if (!output) return;
@@ -77,8 +61,10 @@ export function EncoderDecoder({
   };
 
   const handleSwap = () => {
+    if (!output) return;
     setInput(output);
-    setDirection(direction === "encode" ? "decode" : "encode");
+    setOutput("");
+    setError(null);
   };
 
   const handlePaste = async () => {
@@ -100,79 +86,84 @@ export function EncoderDecoder({
   return (
     <div className="space-y-4">
       {children}
-      {mode === "both" && (
-        <div className="flex justify-center">
-          <div className="inline-flex rounded-lg border bg-muted p-1 gap-1">
-            <Button
-              variant={direction === "encode" ? "default" : "ghost"}
-              size="sm"
-              className="rounded-md px-5"
-              onClick={() => setDirection("encode")}
-            >
-              {t("encode")}
-            </Button>
-            <Button
-              variant={direction === "decode" ? "default" : "ghost"}
-              size="sm"
-              className="rounded-md px-5"
-              onClick={() => setDirection("decode")}
-            >
-              {t("decode")}
+
+      {/* Input */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <span className="text-sm font-medium">{t("inputLabel")}</span>
+          <div className="flex gap-1 flex-wrap justify-end">
+            <Button variant="ghost" size="sm" onClick={handlePaste} className="h-8 px-2 text-xs">
+              <ClipboardPaste className="size-3.5" />{t("paste")}
             </Button>
           </div>
         </div>
+        <Textarea
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder={inputPlaceholder || t("inputPlaceholder")}
+          className="font-mono text-sm min-h-28 field-sizing-content max-h-[50vh] resize-y"
+          style={{ fontSize: "16px" }}
+        />
+      </div>
+
+      {/* Action row — the core interaction, explicit and obvious */}
+      <div className="flex flex-wrap items-center gap-2">
+        {mode !== "decode-only" && (
+          <Button onClick={() => run("encode")} disabled={!input.trim()} className="h-10 px-5">
+            <Lock className="size-4" />{t("encode")}
+          </Button>
+        )}
+        {mode !== "encode-only" && (
+          <Button
+            onClick={() => run("decode")}
+            disabled={!input.trim()}
+            variant={mode === "decode-only" ? "default" : "secondary"}
+            className="h-10 px-5"
+          >
+            <Unlock className="size-4" />{t("decode")}
+          </Button>
+        )}
+        <Button variant="outline" onClick={handleSwap} disabled={!output} className="h-10">
+          <ArrowUpDown className="size-4" />{t("swap")}
+        </Button>
+        <Button
+          variant="outline"
+          onClick={handleClear}
+          disabled={!input && !output}
+          className="h-10 text-destructive hover:text-destructive"
+        >
+          <Trash2 className="size-4" />{t("clear")}
+        </Button>
+      </div>
+
+      {error && (
+        <p className="text-sm text-destructive bg-destructive/10 p-3 rounded-md break-words">{error}</p>
       )}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-4 items-stretch">
-        <div className="space-y-2">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-sm font-medium">
-              {t("inputLabel")}
-              <span className="ml-1.5 text-xs font-normal text-muted-foreground">
-                ({direction === "encode" ? t("encode") : t("decode")})
-              </span>
-            </span>
-            <div className="flex flex-wrap gap-1 justify-end">
-              <Button variant="ghost" size="sm" onClick={handlePaste} className="h-7 px-2 text-xs"><ClipboardPaste className="size-3 mr-1" />{t("paste")}</Button>
-              <Button variant="ghost" size="sm" onClick={handleClear} className="h-7 px-2 text-xs"><Trash2 className="size-3 mr-1" />{t("clear")}</Button>
-            </div>
+
+      {/* Output */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <span className="text-sm font-medium">{t("outputLength")}</span>
+          <div className="flex gap-1 flex-wrap justify-end">
+            <Button variant="ghost" size="sm" onClick={handleCopy} disabled={!output} className="h-8 px-2 text-xs">
+              {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
+              {t("copy")}
+            </Button>
+            <Button variant="ghost" size="sm" onClick={handleDownload} disabled={!output} className="h-8 px-2 text-xs">
+              <Download className="size-3.5" />{t("downloadOutput")}
+            </Button>
           </div>
-          <Textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder={inputPlaceholder || (direction === "encode" ? t("inputPlaceholder") : t("inputPlaceholderDecode"))}
-            className="min-h-[200px] font-mono text-sm resize-y"
-            style={{ fontSize: "16px" }}
-          />
         </div>
-        <div className="flex items-center justify-center text-muted-foreground" aria-hidden="true">
-          <ArrowRight className="hidden lg:block size-5" />
-          <ArrowRight className="lg:hidden size-5 rotate-90" />
-        </div>
-        <div className="space-y-2">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-sm font-medium">{t("outputLength")}</span>
-            <div className="flex flex-wrap gap-1 justify-end">
-              <Button variant="ghost" size="sm" onClick={handleCopy} disabled={!output} className="h-7 px-2 text-xs">
-                {copied ? <Check className="size-3 mr-1" /> : <Copy className="size-3 mr-1" />}
-                {t("copy")}
-              </Button>
-              <Button variant="ghost" size="sm" onClick={handleDownload} disabled={!output} className="h-7 px-2 text-xs"><Download className="size-3 mr-1" />{t("downloadOutput")}</Button>
-            </div>
-          </div>
-          <Textarea
-            value={output}
-            readOnly
-            placeholder={outputPlaceholder || t("outputPlaceholder")}
-            className="min-h-[200px] font-mono text-sm resize-y bg-muted/50"
-            style={{ fontSize: "16px" }}
-          />
-        </div>
+        <Textarea
+          value={output}
+          readOnly
+          placeholder={outputPlaceholder || t("outputPlaceholder")}
+          className="font-mono text-sm min-h-28 field-sizing-content max-h-[50vh] resize-y bg-muted/50"
+          style={{ fontSize: "16px" }}
+        />
       </div>
-      {error && <p className="text-sm text-destructive">{error}</p>}
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <ConversionStats inputLength={input.length} outputLength={output.length} />
-        <Button variant="outline" size="sm" onClick={handleSwap} className="text-xs"><ArrowUpDown className="size-3.5 mr-1" />{t("swap")}</Button>
-      </div>
+
+      <ConversionStats inputLength={input.length} outputLength={output.length} />
     </div>
   );
 }

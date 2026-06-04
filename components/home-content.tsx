@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Shield, Zap, FileCode, UserCheck, DollarSign, ArrowRight, Binary, Globe, Code2, Braces, FileText } from "lucide-react";
+import { Shield, Zap, FileCode, UserCheck, DollarSign, Binary, Globe, Code2, Braces, FileText } from "lucide-react";
 import { ToolTabs } from "@/components/tool-tabs";
 import { Base64Tool } from "@/components/base64-tool";
 import { UrlTool } from "@/components/url-tool";
@@ -61,14 +59,22 @@ export function HomeContent() {
 
   return (
     <div>
-      <section className="max-w-4xl mx-auto px-4 pt-16 pb-12 text-center">
-        <Badge variant="secondary" className="mb-4">{t("featuresHeading")}</Badge>
-        <h1 className="text-4xl sm:text-5xl font-bold mb-4 tracking-tight">Base64 Shuttle</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">{t("subtitle")}</p>
-        <div className="flex gap-3 justify-center mb-12">
-          <a href="#tool" className="inline-flex items-center justify-center h-9 gap-1.5 rounded-lg bg-primary text-primary-foreground px-4 text-sm font-medium hover:bg-primary/80 transition-colors"><ArrowRight className="size-4 mr-2" />{t("cta")}</a>
-          <Link href="/about" className="inline-flex items-center justify-center h-9 gap-1.5 rounded-lg border border-border bg-background px-4 text-sm font-medium hover:bg-muted transition-colors">{t("secondaryCta")}</Link>
+      <section className="max-w-5xl mx-auto px-4 pt-8 pb-4 text-center">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 tracking-tight">Base64 Shuttle</h1>
+        <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto mb-3">{t("subtitle")}</p>
+        <div className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium">
+          <Shield className="size-3.5" />
+          {t("privacyBadge")}
         </div>
+      </section>
+
+      <section id="tool" className="max-w-5xl mx-auto px-4 pb-16">
+        <Card className="shadow-lg">
+          <CardContent className="p-4 sm:p-6">
+            <ToolTabs activeTool={activeTool} onToolChange={setActiveTool} />
+            <div className="mt-4">{renderTool()}</div>
+          </CardContent>
+        </Card>
       </section>
 
       <section className="max-w-5xl mx-auto px-4 pb-12">
@@ -80,15 +86,6 @@ export function HomeContent() {
             </button>
           ))}
         </div>
-      </section>
-
-      <section id="tool" className="max-w-5xl mx-auto px-4 pb-16">
-        <Card className="shadow-lg">
-          <CardContent className="p-4 sm:p-6">
-            <ToolTabs activeTool={activeTool} onToolChange={setActiveTool} />
-            <div className="mt-4">{renderTool()}</div>
-          </CardContent>
-        </Card>
       </section>
 
       <section className="max-w-5xl mx-auto px-4 pb-16">
