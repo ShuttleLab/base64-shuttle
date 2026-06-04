@@ -215,5 +215,37 @@
     "tryBase64": "Base64 编码",
     "tryUrl": "URL 编码",
     "tryJwt": "JWT 解码"
+  },
+  "toolPages": {
+    "openTool": "前往首页打开完整工具 →",
+    "fullGuide": "查看完整英文指南",
+    "base64Encode": {
+      "title": "Base64 编码器（在线）",
+      "subtitle": "几秒内把任意文本、代码片段或二进制文件转换为 Base64。Base64 Shuttle 完全在浏览器中运行，数据始终保留在本地，不会上传到任何服务器。"
+    },
+    "base64Decode": {
+      "title": "Base64 解码器（在线）",
+      "subtitle": "一键把 Base64 编码字符串还原为纯文本。Base64 Shuttle 全程在浏览器中解码，确保你的数据完全私密。"
+    },
+    "urlEncode": {
+      "title": "URL 编码器（在线百分号编码）",
+      "subtitle": "几秒内把特殊字符转换为可安全用于 URL 的百分号编码格式。Base64 Shuttle 全程在本地浏览器中编码，快速且私密。"
+    },
+    "htmlEncode": {
+      "title": "HTML 编码器（在线 HTML 实体转义）",
+      "subtitle": "一键把特殊字符转换为 HTML 实体。借助这款免费的浏览器端编码器，防范 XSS 攻击并安全展示代码片段。"
+    },
+    "jwtDecoder": {
+      "title": "JWT 解码器",
+      "subtitle": "在线解析 JSON Web Token 的头部与载荷。几秒内查看任意 JWT 的 Header、Payload 与签名，全程在浏览器中完成。"
+    },
+    "hexEncode": {
+      "title": "十六进制编码器（在线 Hex 转换）",
+      "subtitle": "一键把任意文本或二进制数据转换为十六进制字节表示。Base64 Shuttle 全程在本地浏览器中处理，编码快速且私密。"
+    },
+    "unicodeConverter": {
+      "title": "Unicode 转换器（在线字符编码与解码）",
+      "subtitle": "一键把任意文本转换为 Unicode 码点、HTML 实体或转义序列。Base64 Shuttle 全程在浏览器中处理，快速且私密。"
+    }
   }
 }

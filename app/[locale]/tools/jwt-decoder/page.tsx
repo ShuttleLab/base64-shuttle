@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,6 +11,16 @@ const BASE_URL = "https://base64.shuttlelab.org";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
+  if (locale === "zh") {
+    return {
+      title: "JWT 解码器（在线）– 免费 JSON Web Token 解析与查看工具",
+      description: "免费在线解码并查看 JWT 令牌。一键查看任意 JSON Web Token 的头部、载荷与签名，全程在浏览器中完成。",
+      alternates: {
+        canonical: `/${locale}/tools/jwt-decoder`,
+        languages: { en: "/tools/jwt-decoder", "x-default": "/tools/jwt-decoder" },
+      },
+    };
+  }
   return {
     title: "JWT Decoder Online – Free JSON Web Token Decoder & Inspector",
     description: "Decode and inspect JWT tokens online for free. View the header, payload, and signature of any JSON Web Token instantly in your browser.",
@@ -24,6 +34,35 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function JwtDecoderPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  if (locale === "zh") {
+    const t = await getTranslations("toolPages");
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-16">
+        <h1 className="text-3xl font-bold tracking-tight mb-4">{t("jwtDecoder.title")}</h1>
+        <p className="text-lg text-muted-foreground mb-10">{t("jwtDecoder.subtitle")}</p>
+
+        <Card className="border-primary/30 bg-primary/5">
+          <CardContent className="flex flex-col items-center gap-4 py-10 text-center">
+            <p className="text-base font-medium">在首页打开 JWT 解码工具，立即解析令牌。</p>
+            <Link
+              href="/zh/#tool"
+              className="inline-flex items-center justify-center h-10 gap-1.5 rounded-lg bg-primary text-primary-foreground px-5 text-sm font-medium hover:bg-primary/80 transition-colors"
+            >
+              <ArrowRight className="size-4 mr-1.5" />
+              {t("openTool")}
+            </Link>
+          </CardContent>
+        </Card>
+
+        <p className="text-center text-sm text-muted-foreground mt-10">
+          <Link href="/tools/jwt-decoder" className="underline hover:text-foreground transition-colors">
+            {t("fullGuide")}
+          </Link>
+        </p>
+      </div>
+    );
+  }
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

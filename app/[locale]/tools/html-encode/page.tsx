@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,6 +11,16 @@ const BASE_URL = "https://base64.shuttlelab.org";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
+  if (locale === "zh") {
+    return {
+      title: "HTML 编码器（在线）– 免费 HTML 实体编码与转义工具",
+      description: "一键把文本编码为 HTML 实体。使用这款免费在线工具，把 <、>、& 和引号等特殊字符转换为对 HTML 安全的等价形式。",
+      alternates: {
+        canonical: `/${locale}/tools/html-encode`,
+        languages: { en: "/tools/html-encode", "x-default": "/tools/html-encode" },
+      },
+    };
+  }
   return {
     title: "HTML Encode Online – Free HTML Entity Encoder & Escaper Tool",
     description: "Encode text to HTML entities instantly. Convert special characters like <, >, &, and quotes to their HTML-safe equivalents with this free online tool.",
@@ -24,6 +34,35 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function HtmlEncodePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  if (locale === "zh") {
+    const t = await getTranslations("toolPages");
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-16">
+        <h1 className="text-3xl font-bold tracking-tight mb-4">{t("htmlEncode.title")}</h1>
+        <p className="text-lg text-muted-foreground mb-10">{t("htmlEncode.subtitle")}</p>
+
+        <Card className="border-primary/30 bg-primary/5">
+          <CardContent className="flex flex-col items-center gap-4 py-10 text-center">
+            <p className="text-base font-medium">在首页打开 HTML 编码工具，立即开始编码。</p>
+            <Link
+              href="/zh/#tool"
+              className="inline-flex items-center justify-center h-10 gap-1.5 rounded-lg bg-primary text-primary-foreground px-5 text-sm font-medium hover:bg-primary/80 transition-colors"
+            >
+              <ArrowRight className="size-4 mr-1.5" />
+              {t("openTool")}
+            </Link>
+          </CardContent>
+        </Card>
+
+        <p className="text-center text-sm text-muted-foreground mt-10">
+          <Link href="/tools/html-encode" className="underline hover:text-foreground transition-colors">
+            {t("fullGuide")}
+          </Link>
+        </p>
+      </div>
+    );
+  }
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

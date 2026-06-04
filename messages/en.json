@@ -215,5 +215,37 @@
     "tryBase64": "Base64 Encode",
     "tryUrl": "URL Encode",
     "tryJwt": "JWT Decoder"
+  },
+  "toolPages": {
+    "openTool": "Open the full tool on the homepage →",
+    "fullGuide": "View the complete English guide",
+    "base64Encode": {
+      "title": "Base64 Encode Online – Free Text & File Encoder",
+      "subtitle": "Convert any text, code snippet, or binary file to Base64 in seconds. Base64 Shuttle runs entirely in your browser, so your data stays private and never touches a server."
+    },
+    "base64Decode": {
+      "title": "Base64 Decode Online – Free Base64 String Decoder",
+      "subtitle": "Instantly convert Base64-encoded strings back to plain text. Base64 Shuttle decodes everything in your browser, keeping your data completely private."
+    },
+    "urlEncode": {
+      "title": "URL Encode Online – Free Percent-Encoding Tool",
+      "subtitle": "Convert special characters to URL-safe percent-encoded format in seconds. Base64 Shuttle encodes everything locally in your browser for fast, private results."
+    },
+    "htmlEncode": {
+      "title": "HTML Encode Online – Free HTML Entity Encoder",
+      "subtitle": "Convert special characters to HTML entities instantly. Protect your web pages from XSS attacks and safely display code snippets using this free browser-based encoder."
+    },
+    "jwtDecoder": {
+      "title": "JWT Decoder Online – Free JSON Web Token Inspector",
+      "subtitle": "Decode and inspect any JWT token in seconds. View the header, payload, and signature in a clean, readable format—entirely in your browser."
+    },
+    "hexEncode": {
+      "title": "Hex Encode Online – Free Hexadecimal Encoder",
+      "subtitle": "Convert any text or binary data to its hexadecimal byte representation instantly. Base64 Shuttle processes everything locally in your browser for fast, private encoding."
+    },
+    "unicodeConverter": {
+      "title": "Unicode Converter Online – Free Character Encoder & Decoder",
+      "subtitle": "Convert any text to Unicode code points, HTML entities, or escape sequences instantly. Base64 Shuttle processes everything in your browser for fast, private results."
+    }
   }
 }
