@@ -118,7 +118,15 @@
     "unicodeUplus": "U+XXXX",
     "unicodeHexEntity": "&#xXXXX;",
     "unicodeDecEntity": "&#NNNNN;",
-    "imagePreview": "图片预览"
+    "imagePreview": "图片预览",
+    "jwtPlaceholder": "在此粘贴你的 JWT Token（xxxxx.yyyyy.zzzzz）",
+    "jwtHeader": "头部 (Header)",
+    "jwtPayload": "载荷 (Payload)",
+    "jwtSignature": "签名 (Signature)",
+    "jwtErrFormat": "无效的 JWT 格式，应为以点号分隔的 3 个部分。",
+    "jwtErrHeader": "头部解码失败，Base64 或 JSON 无效。",
+    "jwtErrPayload": "载荷解码失败，Base64 或 JSON 无效。",
+    "fileBase64Placeholder": "在此粘贴 Base64 字符串……"
   },
   "about": {
     "heroTitle": "关于 Base64 Shuttle",

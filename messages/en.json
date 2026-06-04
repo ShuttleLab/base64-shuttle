@@ -118,7 +118,15 @@
     "unicodeUplus": "U+XXXX",
     "unicodeHexEntity": "&#xXXXX;",
     "unicodeDecEntity": "&#NNNNN;",
-    "imagePreview": "Image Preview"
+    "imagePreview": "Image Preview",
+    "jwtPlaceholder": "Paste your JWT token here (xxxxx.yyyyy.zzzzz)",
+    "jwtHeader": "Header",
+    "jwtPayload": "Payload",
+    "jwtSignature": "Signature",
+    "jwtErrFormat": "Invalid JWT format. Expected 3 parts separated by dots.",
+    "jwtErrHeader": "Failed to decode header. Invalid Base64 or JSON.",
+    "jwtErrPayload": "Failed to decode payload. Invalid Base64 or JSON.",
+    "fileBase64Placeholder": "Paste Base64 string here..."
   },
   "about": {
     "heroTitle": "About Base64 Shuttle",

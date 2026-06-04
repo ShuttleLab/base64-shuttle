@@ -17,9 +17,9 @@ export function ToolTabs({ activeTool, onToolChange }: ToolTabsProps) {
 
   return (
     <Tabs value={activeTool} onValueChange={(v) => onToolChange(v as ToolId)}>
-      <TabsList className="w-full flex flex-wrap h-auto gap-1">
+      <TabsList className="w-full grid grid-cols-4 sm:grid-cols-7 h-auto gap-1">
         {TOOL_IDS.map((id) => (
-          <TabsTrigger key={id} value={id} className="text-xs sm:text-sm">
+          <TabsTrigger key={id} value={id} className="text-xs sm:text-sm truncate">
             {t(id)}
           </TabsTrigger>
         ))}

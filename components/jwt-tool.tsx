@@ -30,17 +30,21 @@ export function JwtTool() {
       <Textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Paste your JWT token here (xxxxx.yyyyy.zzzzz)"
+        placeholder={t("jwtPlaceholder")}
         className="min-h-[100px] font-mono text-sm resize-y"
         style={{ fontSize: "16px" }}
       />
-      {result?.error && <p className="text-sm text-destructive">{result.error}</p>}
+      {result?.error && (
+        <p className="text-sm text-destructive">
+          {result.error.split(" ").map((code) => t(code)).join(" ")}
+        </p>
+      )}
       {result?.header && (
         <div className="space-y-3">
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Badge variant="secondary">Header</Badge>
+                <Badge variant="secondary">{t("jwtHeader")}</Badge>
               </div>
               <pre className="text-sm font-mono whitespace-pre-wrap break-all bg-muted/50 p-3 rounded-md overflow-x-auto">{JSON.stringify(result.header, null, 2)}</pre>
             </CardContent>
@@ -48,7 +52,7 @@ export function JwtTool() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Badge variant="secondary">Payload</Badge>
+                <Badge variant="secondary">{t("jwtPayload")}</Badge>
                 {result.isExpired !== undefined && (
                   <Badge variant={result.isExpired ? "destructive" : "default"}>
                     {result.isExpired ? t("jwtExpired") : t("jwtNotExpired")}
@@ -64,7 +68,7 @@ export function JwtTool() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Badge variant="secondary">Signature</Badge>
+                <Badge variant="secondary">{t("jwtSignature")}</Badge>
               </div>
               <p className="text-sm font-mono break-all bg-muted/50 p-3 rounded-md">{result.signature}</p>
             </CardContent>

@@ -18,7 +18,7 @@ export function decodeJwt(token: string): JwtParts {
       signature: "",
       headerRaw: "",
       payloadRaw: "",
-      error: "Invalid JWT format. Expected 3 parts separated by dots.",
+      error: "jwtErrFormat",
     };
   }
 
@@ -36,7 +36,7 @@ export function decodeJwt(token: string): JwtParts {
     headerRaw = atob(headerB64.replace(/-/g, "+").replace(/_/g, "/"));
     header = JSON.parse(headerRaw);
   } catch {
-    error = "Failed to decode header. Invalid Base64 or JSON.";
+    error = "jwtErrHeader";
   }
 
   try {
@@ -50,7 +50,7 @@ export function decodeJwt(token: string): JwtParts {
       isExpired = Date.now() > exp * 1000;
     }
   } catch {
-    error = (error ? error + " " : "") + "Failed to decode payload. Invalid Base64 or JSON.";
+    error = (error ? error + " " : "") + "jwtErrPayload";
   }
 
   return {

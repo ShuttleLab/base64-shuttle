@@ -124,14 +124,14 @@ export function EncoderDecoder({
       )}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-4 items-stretch">
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-sm font-medium">
               {t("inputLabel")}
               <span className="ml-1.5 text-xs font-normal text-muted-foreground">
                 ({direction === "encode" ? t("encode") : t("decode")})
               </span>
             </span>
-            <div className="flex gap-1">
+            <div className="flex flex-wrap gap-1 justify-end">
               <Button variant="ghost" size="sm" onClick={handlePaste} className="h-7 px-2 text-xs"><ClipboardPaste className="size-3 mr-1" />{t("paste")}</Button>
               <Button variant="ghost" size="sm" onClick={handleClear} className="h-7 px-2 text-xs"><Trash2 className="size-3 mr-1" />{t("clear")}</Button>
             </div>
@@ -144,13 +144,14 @@ export function EncoderDecoder({
             style={{ fontSize: "16px" }}
           />
         </div>
-        <div className="hidden lg:flex items-center justify-center text-muted-foreground" aria-hidden="true">
-          <ArrowRight className="size-5" />
+        <div className="flex items-center justify-center text-muted-foreground" aria-hidden="true">
+          <ArrowRight className="hidden lg:block size-5" />
+          <ArrowRight className="lg:hidden size-5 rotate-90" />
         </div>
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-sm font-medium">{t("outputLength")}</span>
-            <div className="flex gap-1">
+            <div className="flex flex-wrap gap-1 justify-end">
               <Button variant="ghost" size="sm" onClick={handleCopy} disabled={!output} className="h-7 px-2 text-xs">
                 {copied ? <Check className="size-3 mr-1" /> : <Copy className="size-3 mr-1" />}
                 {t("copy")}
@@ -168,7 +169,7 @@ export function EncoderDecoder({
         </div>
       </div>
       {error && <p className="text-sm text-destructive">{error}</p>}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <ConversionStats inputLength={input.length} outputLength={output.length} />
         <Button variant="outline" size="sm" onClick={handleSwap} className="text-xs"><ArrowUpDown className="size-3.5 mr-1" />{t("swap")}</Button>
       </div>

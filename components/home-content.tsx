@@ -19,6 +19,7 @@ type ToolId = "base64" | "url" | "html" | "jwt" | "hex" | "unicode" | "file";
 
 export function HomeContent() {
   const t = useTranslations("home");
+  const tt = useTranslations("tools");
   const [activeTool, setActiveTool] = useState<ToolId>("base64");
 
   const features = [
@@ -43,7 +44,7 @@ export function HomeContent() {
     { id: "jwt" as ToolId, icon: Braces, label: "JWT" },
     { id: "hex" as ToolId, icon: FileCode, label: "Hex" },
     { id: "unicode" as ToolId, icon: FileText, label: "Unicode" },
-    { id: "file" as ToolId, icon: FileText, label: "File ↔ Base64" },
+    { id: "file" as ToolId, icon: FileText, label: tt("fileBase64") },
   ];
 
   const renderTool = () => {

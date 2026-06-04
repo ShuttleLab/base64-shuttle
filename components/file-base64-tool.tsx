@@ -104,7 +104,7 @@ export function FileBase64Tool() {
           </Card>
           {output && (
             <div className="space-y-2">
-              <div className="flex gap-1">
+              <div className="flex flex-wrap gap-1">
                 <Button variant="ghost" size="sm" onClick={handleCopy} className="h-7 px-2 text-xs">
                   {copied ? <Check className="size-3 mr-1" /> : <Copy className="size-3 mr-1" />}{t("copy")}
                 </Button>
@@ -121,7 +121,7 @@ export function FileBase64Tool() {
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Paste Base64 string here..."
+            placeholder={t("fileBase64Placeholder")}
             className="min-h-[120px] font-mono text-sm resize-y"
             style={{ fontSize: "16px" }}
           />
