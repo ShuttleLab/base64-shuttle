@@ -2,6 +2,8 @@
 
 A small web app to encode and decode Base64, URL, HTML, Hex, Unicode, and JWT. Everything runs in the browser; no data is sent to any server.
 
+**🔗 Try it live: [Free Base64, URL, Hex & JWT encoder / decoder](https://base64.shuttlelab.org)** — encode and decode right in your browser, no upload required.
+
 ## Features
 
 - **Base64** – UTF-8 safe encode/decode via TextEncoder + btoa/atob
